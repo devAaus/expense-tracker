@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased`}
+        className={`${inter.className} antialiased max-w-screen-xl mx-auto bg-zinc-200 transition-all duration-300`}
       >
         <div className="flex min-h-screen flex-col">
           <Navbar />
