@@ -4,17 +4,20 @@ import { redirect } from "next/navigation";
 
 export default async function Account() {
    // authentication check
-   const { isAuthenticated } = getKindeServerSession();
+   const { isAuthenticated, getUser } = getKindeServerSession();
    if (!(await isAuthenticated())) {
       return redirect("/api/auth/login");
    }
+
+   // get user data
+   const user = await getUser();
    return (
       <div className="flex-1 space-y-4">
          <div className="flex items-center justify-between space-y-2">
             <h2 className="text-4xl font-bold tracking-tight">Account</h2>
          </div>
 
-         <AccountDetails />
+         <AccountDetails user={user} />
       </div>
    )
 }

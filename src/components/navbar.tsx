@@ -8,7 +8,6 @@ import NavLink from './navlink';
 export default async function Navbar() {
    const { isAuthenticated } = getKindeServerSession();
    const isLoggedIn = await isAuthenticated();
-   console.log(isLoggedIn);
 
    return (
       <header className="px-4 lg:px-6 h-16 flex items-center border-b border-zinc-400">
