@@ -1,7 +1,9 @@
 import ExpensesForm from "@/components/expenses-form"
 import ExpensesList from "@/components/expenses-list"
+import { prisma } from "@/lib/db";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+   const expenses = await prisma.expense.findMany();
    return (
       <div className="flex-1 space-y-4">
          <div className="flex items-center justify-between space-y-2">
@@ -13,7 +15,7 @@ export default function Dashboard() {
                <ExpensesForm />
             </div>
             <div className="lg:col-span-2">
-               <ExpensesList />
+               <ExpensesList expenses={expenses} />
             </div>
          </div>
       </div>
