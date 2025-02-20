@@ -1,23 +1,11 @@
 "use server"
 
 import { prisma } from "@/lib/db"
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { checkAuthenticationAndMembership } from "@/lib/server-utils";
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation";
-
-const authCheck = async () => {
-   // auth check
-   const { isAuthenticated, getUser } = getKindeServerSession();
-   if (!(await isAuthenticated())) {
-      return redirect("/api/auth/login");
-   }
-
-   const user = await getUser();
-   return user;
-}
 
 export async function getExpenses() {
-   const user = await authCheck();
+   const { user } = await checkAuthenticationAndMembership();
    return await prisma.expense.findMany({
       where: {
          userId: user.id
@@ -29,7 +17,7 @@ export async function getExpenses() {
 }
 
 export async function addExpense(formData: FormData) {
-   const user = await authCheck();
+   const { user } = await checkAuthenticationAndMembership();
 
    await prisma.expense.create({
       data: {
@@ -43,7 +31,7 @@ export async function addExpense(formData: FormData) {
 }
 
 export async function deleteExpense(id: number) {
-   await authCheck();
+   await checkAuthenticationAndMembership();
    await prisma.expense.delete({
       where: {
          id

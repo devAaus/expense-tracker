@@ -1,9 +1,12 @@
 import React from 'react'
 import { Button } from './ui/button'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, DollarSign } from 'lucide-react'
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-export default function HeroSection() {
+export default async function HeroSection() {
+   const { isAuthenticated } = getKindeServerSession();
+   const isLoggedIn = await isAuthenticated();
    return (
       <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
          <div className="container mx-auto px-4 md:px-6">
@@ -16,12 +19,22 @@ export default function HeroSection() {
                      Stay on top of your finances with our simple and intuitive expense tracking solution.
                   </p>
                </div>
-               <div className="space-x-4">
+               <div className="flex flex-col gap-4">
                   <Button asChild>
                      <Link href="/app/dashboard">
                         Get Started <ArrowRight className="ml-2 h-4 w-4" />
                      </Link>
                   </Button>
+                  {isLoggedIn && (
+                     <>
+                        <Button asChild>
+                           <Link href="/app/dashboard">
+                              <DollarSign className="h-4 w-4" /> Pay
+                           </Link>
+                        </Button>
+                        <span className='text-xs'>(Get lifetime access for $99)</span>
+                     </>
+                  )}
                </div>
             </div>
          </div>
