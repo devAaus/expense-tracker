@@ -3,10 +3,28 @@ import { Button } from './ui/button'
 import Link from 'next/link'
 import { ArrowRight, DollarSign } from 'lucide-react'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import PurchaseButton from './purchase-btn';
+import { prisma } from '@/lib/db';
 
 export default async function HeroSection() {
-   const { isAuthenticated } = getKindeServerSession();
+   const { isAuthenticated, getUser } = getKindeServerSession();
    const isLoggedIn = await isAuthenticated();
+
+   let isPayingMember = false;
+
+   const user = await getUser();
+   if (user) {
+      const membership = await prisma.membership.findFirst({
+         where: {
+            userId: user.id,
+            status: "active",
+         },
+      });
+      if (membership) {
+         isPayingMember = true;
+      }
+   }
+
    return (
       <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
          <div className="container mx-auto px-4 md:px-6">
@@ -25,16 +43,7 @@ export default async function HeroSection() {
                         Get Started <ArrowRight className="ml-2 h-4 w-4" />
                      </Link>
                   </Button>
-                  {isLoggedIn && (
-                     <>
-                        <Button asChild>
-                           <Link href="/app/dashboard">
-                              <DollarSign className="h-4 w-4" /> Pay
-                           </Link>
-                        </Button>
-                        <span className='text-xs'>(Get lifetime access for $99)</span>
-                     </>
-                  )}
+                  {isLoggedIn && !isPayingMember && <PurchaseButton />}
                </div>
             </div>
          </div>
