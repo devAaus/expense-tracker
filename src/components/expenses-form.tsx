@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "./ui/input"
 import { Button } from "./ui/button"
+import { addExpense } from "@/actions/actions"
 
 export default function ExpensesForm() {
    return (
@@ -16,7 +17,7 @@ export default function ExpensesForm() {
             <CardDescription></CardDescription>
          </CardHeader>
          <CardContent>
-            <form>
+            <form action={addExpense}>
                <div className="space-y-2">
                   <Input
                      type="text"
