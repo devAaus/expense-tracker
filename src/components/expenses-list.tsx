@@ -1,3 +1,5 @@
+"use client"
+
 import {
    Card,
    CardContent,
@@ -5,18 +7,15 @@ import {
    CardHeader,
    CardTitle
 } from "@/components/ui/card"
+import { Button } from "./ui/button";
+import { deleteExpense } from "@/actions/actions";
+import { Pencil } from "lucide-react";
+import { ExpensesListProps } from "@/lib/type";
 
-type ExpensesListProps = {
-   expenses: {
-      id: number;
-      description: string;
-      amount: number;
-      createdAt: Date;
-      updatedAt: Date;
-   }[]
-}
 
-export default async function ExpensesList({ expenses }: ExpensesListProps) {
+export default function ExpensesList(
+   { expenses }: ExpensesListProps
+) {
    return (
       <Card className="col-span-3">
          <CardHeader>
@@ -31,7 +30,20 @@ export default async function ExpensesList({ expenses }: ExpensesListProps) {
                         <p className="text-sm font-medium leading-none">{expense.description}</p>
                         <p className="text-sm text-muted-foreground">{new Date(expense.createdAt).toLocaleDateString()}</p>
                      </div>
-                     <div className="ml-auto font-medium">${expense.amount.toFixed(2)}</div>
+                     <div className="ml-auto flex items-center space-x-4">
+                        <div className=" font-medium">${expense.amount.toFixed(2)}</div>
+                        <Button variant={'secondary'}>
+                           <Pencil />
+                        </Button>
+                        <Button
+                           onClick={async () => {
+                              await deleteExpense(expense.id)
+                           }}
+                           variant={'destructive'}
+                        >
+                           X
+                        </Button>
+                     </div>
                   </div>
                ))}
             </div>
