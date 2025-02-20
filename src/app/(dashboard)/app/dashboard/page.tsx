@@ -1,8 +1,16 @@
 import { getExpenses } from "@/actions/actions";
 import ExpensesForm from "@/components/expenses-form"
 import ExpensesList from "@/components/expenses-list"
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
+   // authentication check
+   const { isAuthenticated } = getKindeServerSession();
+   if (!(await isAuthenticated())) {
+      return redirect("/api/auth/login");
+   }
+
    const expenses = await getExpenses();
 
    return (
