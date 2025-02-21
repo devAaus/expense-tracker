@@ -2,8 +2,7 @@ import { DollarSign } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from './ui/button';
-import { getKindeServerSession, LoginLink, LogoutLink, RegisterLink } from '@kinde-oss/kinde-auth-nextjs/server';
-import NavLink from './navlink';
+import { getKindeServerSession, LoginLink, RegisterLink } from '@kinde-oss/kinde-auth-nextjs/server';
 import AvatarDropdown from './avatar-dropdown';
 import { User } from '@/lib/type';
 

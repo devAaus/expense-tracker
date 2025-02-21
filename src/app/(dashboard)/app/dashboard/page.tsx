@@ -1,5 +1,4 @@
 import { getExpenses } from "@/actions/actions";
-import ExpenseCard from "@/components/expense-card";
 import ExpensesForm from "@/components/expenses-form"
 import ExpensesList from "@/components/expenses-list"
 import { checkAuthenticationAndMembership } from "@/lib/server-utils";

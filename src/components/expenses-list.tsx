@@ -7,9 +7,6 @@ import {
    CardHeader,
    CardTitle
 } from "@/components/ui/card"
-import { Button } from "./ui/button";
-import { deleteExpense } from "@/actions/actions";
-import { Pencil } from "lucide-react";
 import { ExpensesListProps } from "@/lib/type";
 import ExpenseCard from "./expense-card";
 

@@ -1,17 +1,7 @@
 "use client"
 
-import {
-   Card,
-   CardContent,
-   CardDescription,
-   CardHeader,
-   CardTitle
-} from "@/components/ui/card"
-
-import React from 'react'
 import { Button } from './ui/button'
 import { Pencil } from 'lucide-react'
-
 import { ExpenseProps, } from '@/lib/type'
 import { deleteExpense } from '@/actions/actions'
 
