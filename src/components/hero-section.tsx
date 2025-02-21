@@ -9,7 +9,6 @@ import { prisma } from '@/lib/db';
 export default async function HeroSection() {
    const { isAuthenticated, getUser } = getKindeServerSession();
    const isLoggedIn = await isAuthenticated();
-
    let isPayingMember = false;
 
    const user = await getUser();

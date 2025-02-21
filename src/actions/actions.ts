@@ -66,7 +66,7 @@ export async function createCheckoutSession() {
          },
       ],
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/app/dashboard`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/app/dashboard?payment=success`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
    });
 
