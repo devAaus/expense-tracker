@@ -2,7 +2,7 @@ import AccountDetails from "@/components/account-details"
 import { checkAuthenticationAndMembership } from "@/lib/server-utils";
 import { User } from "@/lib/type";
 
-export default async function Account() {
+export default async function Profile() {
    const { user } = await checkAuthenticationAndMembership();
    return (
       <div className="flex-1 space-y-4">

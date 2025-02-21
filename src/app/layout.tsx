@@ -20,10 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased max-w-screen-xl mx-auto bg-zinc-200 transition-all duration-300`}
+        className={`${inter.className} antialiased bg-zinc-200`}
       >
         <NextTopLoader showSpinner={false} />
-        <div className="flex min-h-screen flex-col">
+        <div className="flex min-h-screen flex-col max-w-screen-xl mx-auto transition-all duration-300">
           <Navbar />
           <main className="flex-1">
             {children}
