@@ -9,3 +9,17 @@ export type Expense = {
 export type ExpensesListProps = {
    expenses: Expense[]
 }
+
+export type User = {
+   id: string;
+   email: string;
+   family_name?: string;
+   given_name: string;
+   picture?: string;
+   username?: string;
+   phone_number?: string;
+}
+
+export type UserProps = {
+   user: User
+}

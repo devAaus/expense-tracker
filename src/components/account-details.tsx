@@ -6,8 +6,9 @@ import {
    CardTitle
 } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { UserProps } from "@/lib/type";
 
-export default function AccountDetails({ user }: { user: any }) {
+export default function AccountDetails({ user }: UserProps) {
    return (
       <Card className="col-span-3">
          <CardHeader>
