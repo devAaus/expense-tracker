@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/db"
 import { checkAuthenticationAndMembership } from "@/lib/server-utils";
+import { expenseSchema } from "@/lib/zod-schema";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation";
@@ -22,15 +23,23 @@ export async function getExpenses() {
 export async function addExpense(formData: FormData) {
    const { user } = await checkAuthenticationAndMembership();
 
+   // Convert FormData to a regular object
+   const data = {
+      description: formData.get("description") as string,
+      amount: formData.get("amount") as string,
+   };
+
+   // Validate data using Zod
+   const validatedData = expenseSchema.parse(data);
+
+   // Insert into the database
    await prisma.expense.create({
       data: {
-         description: formData.get("description") as string,
-         amount: Number(formData.get("amount")),
-         userId: user.id
-      }
-   })
-
-   revalidatePath("/app/dashboard")
+         description: validatedData.description,
+         amount: Number(validatedData.amount),
+         userId: user.id,
+      },
+   });
 }
 
 export async function deleteExpense(id: number) {
