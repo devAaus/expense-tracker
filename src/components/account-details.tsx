@@ -5,9 +5,6 @@ import {
    CardHeader,
    CardTitle
 } from "@/components/ui/card"
-import { Input } from "./ui/input"
-import { Button } from "./ui/button"
-import { Label } from "./ui/label"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 export default function AccountDetails({ user }: { user: any }) {

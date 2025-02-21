@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 import Link from 'next/link'
-import { ArrowRight, DollarSign } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import PurchaseButton from './purchase-btn';
 import { prisma } from '@/lib/db';
