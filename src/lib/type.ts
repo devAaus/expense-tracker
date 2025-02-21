@@ -6,6 +6,10 @@ export type Expense = {
    updatedAt: Date;
 }
 
+export type ExpenseProps = {
+   expense: Expense
+}
+
 export type ExpensesListProps = {
    expenses: Expense[]
 }

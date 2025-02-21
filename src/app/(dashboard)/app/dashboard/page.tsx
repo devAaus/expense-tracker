@@ -1,4 +1,5 @@
 import { getExpenses } from "@/actions/actions";
+import ExpenseCard from "@/components/expense-card";
 import ExpensesForm from "@/components/expenses-form"
 import ExpensesList from "@/components/expenses-list"
 import { checkAuthenticationAndMembership } from "@/lib/server-utils";
@@ -24,11 +25,11 @@ export default async function Dashboard({
             <h2 className="text-4xl font-bold tracking-tight">Dashboard</h2>
          </div>
 
-         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div className="lg:col-span-1">
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="col-span-1">
                <ExpensesForm />
             </div>
-            <div className="lg:col-span-2">
+            <div className="md:col-span-3">
                <ExpensesList expenses={expenses} />
             </div>
          </div>

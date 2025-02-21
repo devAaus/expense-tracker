@@ -11,6 +11,7 @@ import { Button } from "./ui/button";
 import { deleteExpense } from "@/actions/actions";
 import { Pencil } from "lucide-react";
 import { ExpensesListProps } from "@/lib/type";
+import ExpenseCard from "./expense-card";
 
 
 export default function ExpensesList(
@@ -23,28 +24,9 @@ export default function ExpensesList(
             <CardDescription>You have spent $483 this month</CardDescription>
          </CardHeader>
          <CardContent>
-            <div className="space-y-8">
+            <div className="space-y-4">
                {expenses.map((expense) => (
-                  <div key={expense.id} className="flex items-center">
-                     <div className="ml-4 space-y-1">
-                        <p className="text-sm font-medium leading-none">{expense.description}</p>
-                        <p className="text-sm text-muted-foreground">{new Date(expense.createdAt).toLocaleDateString()}</p>
-                     </div>
-                     <div className="ml-auto flex items-center space-x-4">
-                        <div className=" font-medium">${expense.amount.toFixed(2)}</div>
-                        <Button variant={'secondary'}>
-                           <Pencil />
-                        </Button>
-                        <Button
-                           onClick={async () => {
-                              await deleteExpense(expense.id)
-                           }}
-                           variant={'destructive'}
-                        >
-                           X
-                        </Button>
-                     </div>
-                  </div>
+                  <ExpenseCard key={expense.id} expense={expense} />
                ))}
             </div>
          </CardContent>
