@@ -1,5 +1,6 @@
 import AccountDetails from "@/components/account-details"
 import { checkAuthenticationAndMembership } from "@/lib/server-utils";
+import { User } from "@/lib/type";
 
 export default async function Account() {
    const { user } = await checkAuthenticationAndMembership();
@@ -9,7 +10,7 @@ export default async function Account() {
             <h2 className="text-4xl font-bold tracking-tight">Account</h2>
          </div>
 
-         <AccountDetails user={user} />
+         <AccountDetails user={user as User} />
       </div>
    )
 }
