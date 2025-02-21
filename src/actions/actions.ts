@@ -8,6 +8,8 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
 
+
+// get expenses
 export async function getExpenses() {
    const { user } = await checkAuthenticationAndMembership();
    return await prisma.expense.findMany({
@@ -20,6 +22,8 @@ export async function getExpenses() {
    })
 }
 
+
+// add expense
 export async function addExpense(formData: FormData) {
    const { user } = await checkAuthenticationAndMembership();
 
@@ -42,8 +46,25 @@ export async function addExpense(formData: FormData) {
    });
 }
 
+
+// delete expense
 export async function deleteExpense(id: number) {
-   await checkAuthenticationAndMembership();
+   const { user } = await checkAuthenticationAndMembership();
+
+   // Check if the expense exists and belongs to the logged-in user
+   const expense = await prisma.expense.findUnique({
+      where: { id },
+   });
+
+   if (!expense) {
+      return { error: "Expense not found" };
+   }
+
+   if (expense.userId !== user.id) {
+      return { error: "Unauthorized to delete this expense" };
+   }
+
+   // Delete the expense
    await prisma.expense.delete({
       where: {
          id
@@ -53,6 +74,8 @@ export async function deleteExpense(id: number) {
    revalidatePath("/app/dashboard")
 }
 
+
+// create checkout session
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
    apiVersion: "2025-01-27.acacia"
 })
